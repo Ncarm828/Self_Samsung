@@ -2,14 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="appsandmaps.temple.edu.self" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="edu.temple.app.provider.permission.READ_PROVIDER" />
+    <uses-permission android:name="edu.temple.app.provider.permission.WRITE_PROVIDER" />
+    <uses-permission android:name="com.samsung.android.sdk.permission.REMOTE_SENSOR_SERVICE" />
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".LoadingScreen"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,8 +28,29 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".Flow"
+            android:label="@string/title_activity_flow"
+            android:screenOrientation="portrait">
+        </activity>
+        <provider
+            android:name=".MyContentProvider"
+            android:authorities="edu.temple.app.provider"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+
+        <receiver android:name=".AlarmReceiver" />
+        <receiver
+            android:name=".ReBootNotif"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
