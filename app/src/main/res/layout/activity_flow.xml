@@ -8,5 +8,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/imageView12"
-        android:src="@drawable/flow_calendar" />
+        android:src="@drawable/flow_calendar"
+        android:scaleType="fitXY" />
 </RelativeLayout>

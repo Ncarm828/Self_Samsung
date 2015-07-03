@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements EventListener{
             //the manager class is passed in the remoteSensor,then you are able to control the the sensor
             mServiceManager = new SrsRemoteSensorManager(remoteSensor);
 
-            new HurryUpandWait().execute();
+          //  new HurryUpandWait().execute();
 
 
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -250,12 +250,13 @@ public class MainActivity extends Activity implements EventListener{
         if (pedoSensorList != null) {
             pedometerSensor = pedoSensorList.get(0);
             mServiceManager.registerListener(this, pedometerSensor, SrsRemoteSensorManager.SENSOR_DELAY_NORMAL, 0);
+
         } else {
             makeToast("Sensor is NULL Please Wait....");
         }
     }
 
-    public void stopPedometerEvent(View view) {
+    public void stopPedometerEvent() {
         SrsRemoteSensor sensor;
         sensor = pedoSensorList.get(0);
         mServiceManager.unregisterListener(this, sensor);
@@ -312,6 +313,7 @@ public class MainActivity extends Activity implements EventListener{
         try {
             int id = Integer.parseInt(str_id);
             ContentValues values = new ContentValues();
+            makeToast(Steps);
             values.put(ContractClass.FitNessTable.STEPS, Steps);
             //  values.put(ContractClass.FitNessTable.EXPERIENCE, content.getText().toString());
             getContentResolver().update(ContractClass.CONTENT_URI, values,
@@ -740,12 +742,15 @@ public class MainActivity extends Activity implements EventListener{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.stepfragment, container, false);
+
             getPedometerSensorInfo();
             getPedometerEvent();
             getStepInformation();
+            updateInformation("1");
+            stopPedometerEvent();
 
             StepFragment fragment = new StepFragment();
-            fragment.setStepCount(getStepInformation());
+            fragment.setStepCount(5629);
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.fragment_Step1, fragment);
@@ -759,7 +764,14 @@ public class MainActivity extends Activity implements EventListener{
         public void onResume() {
             super.onResume();
             ImageButton button = (ImageButton)findViewById(R.id.imageButton4);
-            button.setImageResource(R.mipmap.ic_data_usage_white_24dp);
+          /*  button.setImageResource(R.mipmap.ic_data_usage_white_24dp);
+            mServiceManager.registerListener(MainActivity.this, pedometerSensor,
+                    SrsRemoteSensorManager.SENSOR_DELAY_NORMAL, 0);
+            getPedometerSensorInfo();
+            getPedometerEvent();
+            updateInformation("1");
+            getStepInformation();
+            stopPedometerEvent();*/
         }
 
         @Override
@@ -802,8 +814,8 @@ public class MainActivity extends Activity implements EventListener{
             //    textViews.setText(title);
 
                 cur.close();
-
                 makeToast(title);
+
                 return Integer.parseInt(title);
             }
 

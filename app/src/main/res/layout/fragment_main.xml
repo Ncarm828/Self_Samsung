@@ -5,7 +5,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="appsandmaps.temple.edu.self.MainActivity$PlaceholderFragment"
-    android:background="@color/White">
+    android:background="@color/White"
+    android:minHeight="50dp">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -14,7 +15,19 @@
         android:src="@drawable/jeff_avatar"
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:paddingTop="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/SelfGrey"
+        android:layout_gravity="center"
+        android:layout_below="@+id/Main_tab"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/Second_tab"
+        android:paddingLeft="10dp"
+        />
 
 
 
@@ -24,7 +37,7 @@
         android:id="@+id/fragment_SSEnergy"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp" />
+        android:layout_marginBottom="37dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -37,7 +50,8 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:id="@+id/fragment_goal"
-            android:layout_margin="1dp" />
+            android:layout_margin="1dp"
+            android:background="@color/White" />
         <FrameLayout
             android:layout_width="110dp"
             android:layout_height="110dp"
@@ -46,8 +60,14 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:id="@+id/fragment_rank"
-            android:layout_margin="1dp" />
+            android:layout_margin="1dp"
+            android:background="@color/White" />
+
+
     </LinearLayout>
+
+
+
 
 
 
