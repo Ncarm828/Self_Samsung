@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements EventListener{
             //the manager class is passed in the remoteSensor,then you are able to control the the sensor
             mServiceManager = new SrsRemoteSensorManager(remoteSensor);
 
-          //  new HurryUpandWait().execute();
+            new HurryUpandWait().execute();
 
 
             PlaceholderFragment fragment = new PlaceholderFragment();
@@ -238,11 +238,10 @@ public class MainActivity extends Activity implements EventListener{
         if (pedoSensorList != null) {
             SrsRemoteSensor sensor;
             sensor = pedoSensorList.get(0);
-           // makeToast(sensor.toString());
-            // pedoSensorText.setText(sensor.toString());
+          //  makeToast(sensor.toString());
 
         } else {
-            makeToast("Sensor is NULL Please Wait....");
+            makeToast("Sensor is NULL Please Reload Page....");
         }
     }
 
@@ -250,9 +249,8 @@ public class MainActivity extends Activity implements EventListener{
         if (pedoSensorList != null) {
             pedometerSensor = pedoSensorList.get(0);
             mServiceManager.registerListener(this, pedometerSensor, SrsRemoteSensorManager.SENSOR_DELAY_NORMAL, 0);
-
         } else {
-            makeToast("Sensor is NULL Please Wait....");
+            makeToast("Sensor is NULL Please Reload Page....");
         }
     }
 
@@ -749,8 +747,9 @@ public class MainActivity extends Activity implements EventListener{
             updateInformation("1");
             stopPedometerEvent();
 
+
             StepFragment fragment = new StepFragment();
-            fragment.setStepCount(5629);
+            fragment.setStepCount(Math.round(Float.parseFloat(Steps)));
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.fragment_Step1, fragment);
@@ -764,14 +763,8 @@ public class MainActivity extends Activity implements EventListener{
         public void onResume() {
             super.onResume();
             ImageButton button = (ImageButton)findViewById(R.id.imageButton4);
-          /*  button.setImageResource(R.mipmap.ic_data_usage_white_24dp);
-            mServiceManager.registerListener(MainActivity.this, pedometerSensor,
-                    SrsRemoteSensorManager.SENSOR_DELAY_NORMAL, 0);
-            getPedometerSensorInfo();
-            getPedometerEvent();
-            updateInformation("1");
-            getStepInformation();
-            stopPedometerEvent();*/
+            button.setImageResource(R.mipmap.ic_data_usage_white_24dp);
+
         }
 
         @Override
