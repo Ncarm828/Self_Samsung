@@ -117,7 +117,7 @@ public class MyContentProvider extends ContentProvider implements AsyncResponse 
         Cursor mCursor = db.rawQuery("SELECT * FROM " + ContractClass.FitNessTable.TABLE_NAME, null);
         Boolean rowExists;
 
-        if (mCursor.moveToFirst()) {
+        if (mCursor.moveToNext()) {
             ContentValues args = new ContentValues();
             args.put(ContractClass.FitNessTable.STEPS, MainActivity.Steps);
             args.put(ContractClass.FitNessTable.EXPERIENCE, ContractClass.DataBaseInfoHolder);

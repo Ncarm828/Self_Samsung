@@ -1,32 +1,25 @@
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="appsandmaps.temple.edu.content_provider.LevelFragment"
-    android:background="@color/White">
-
-
-
+    android:layout_height="match_parent" tools:context="appsandmaps.temple.edu.self.RankFragment">
 
     <ProgressBar
-        android:id="@+id/progressBarLevel"
+        android:id="@+id/progressBarRank"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:indeterminate="false"
         android:max="100"
         android:progress="75"
-        android:progressDrawable="@drawable/style_circle_fill_level"
+        android:progressDrawable="@drawable/style_circle_fill_rank"
         android:secondaryProgress="10" />
 
     <TextView
-        android:id="@+id/tvLevel"
+        android:id="@+id/tvRank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_margin="5dp"
         android:layout_gravity="center"
         android:textSize="20sp" />
-
 
 </FrameLayout>

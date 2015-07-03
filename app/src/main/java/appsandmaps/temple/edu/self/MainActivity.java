@@ -192,7 +192,12 @@ public class MainActivity extends Activity implements EventListener{
 
             public void onClick(View arg0) {
 
-                Toast.makeText(MainActivity.this,"NULL",Toast.LENGTH_SHORT).show();
+                StepsFragment fragment = new StepsFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container1, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
             }
         });
@@ -289,8 +294,8 @@ public class MainActivity extends Activity implements EventListener{
                     Steps = Float.toString(srsRemoteSensorEvent.values[0]);
 
                     updateInformation("1");
-                    textViews = (TextView) findViewById(R.id.steps);
-                    textViews.setText(Steps);
+                   // textViews = (TextView) findViewById(R.id.steps);
+                   // textViews.setText(Steps);
 
 
                 }
@@ -660,6 +665,35 @@ public class MainActivity extends Activity implements EventListener{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            GoalFragment fragment = new GoalFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_goal, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
+            LevelFragment fragment2 = new LevelFragment();
+            FragmentManager fragmentManager2 = getFragmentManager();
+            FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+            fragmentTransaction2.add(R.id.fragment_level, fragment2);
+            fragmentTransaction2.addToBackStack(null);
+            fragmentTransaction2.commit();
+
+            RankFragment fragment1 = new RankFragment();
+            FragmentManager fragmentManager1 = getFragmentManager();
+            FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
+            fragmentTransaction1.add(R.id.fragment_rank, fragment1);
+            fragmentTransaction1.addToBackStack(null);
+            fragmentTransaction1.commit();
+
+            SSEnergyFragment fragment4 = new SSEnergyFragment();
+            fragment4.setStepCount(1265);
+            FragmentManager fragmentManager4 = getFragmentManager();
+            FragmentTransaction fragmentTransaction4 = fragmentManager4.beginTransaction();
+            fragmentTransaction4.add(R.id.fragment_SSEnergy, fragment4);
+            fragmentTransaction4.addToBackStack(null);
+            fragmentTransaction4.commit();
+
             return rootView;
         }
 
@@ -694,38 +728,91 @@ public class MainActivity extends Activity implements EventListener{
         }
     }
 
-    void getStepInformation() {
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public class StepsFragment extends Fragment {
+
+        public StepsFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.stepfragment, container, false);
+            getPedometerSensorInfo();
+            getPedometerEvent();
+            getStepInformation();
+
+            StepFragment fragment = new StepFragment();
+            fragment.setStepCount(getStepInformation());
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_Step1, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
+            return rootView;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            ImageButton button = (ImageButton)findViewById(R.id.imageButton4);
+            button.setImageResource(R.mipmap.ic_data_usage_white_24dp);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            ImageButton button = (ImageButton)findViewById(R.id.imageButton4);
+            button.setImageResource(R.mipmap.ic_data_usage_black_24dp);
+        }
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            TextView view = (TextView)findViewById(R.id.textView);
+            view.setText("Steps");
+
+            ImageButton button = (ImageButton)findViewById(R.id.imageButton4);
+            button.setImageResource(R.mipmap.ic_data_usage_white_24dp);
+        }
+
+        @Override
+        public void onDetach() {
+            super.onDetach();
+
+        }
+    }
+
+    int getStepInformation() {
         Cursor cur = getContentResolver().query(ContractClass.CONTENT_URI,
                 null, null, null, null);
 
         if (cur.getCount() > 0) {
             Log.i(TAG, "Showing values.....");
-            while (cur.moveToFirst()) {
+            while (cur.moveToNext()) {
                 String Id = cur.getString(cur.getColumnIndex(ContractClass.FitNessTable.ID));
                 String title = cur.getString(cur.getColumnIndex(ContractClass.FitNessTable.STEPS));
                 String Steps = cur.getString(cur.getColumnIndex(ContractClass.FitNessTable.EXPERIENCE));
-                System.out.println("Id = " + Id + ", Steps Title : " + title + ", other :" + Steps);
-                textViews = (TextView) findViewById(R.id.steps);
-                textViews.setText(title);
 
-             /*   StepHolder = (Float.valueOf(title) / 5000) * 100;
-                // makeToast(StepHolder.toString());
+            //    System.out.println("Id = " + Id + ", Steps : " + title + ", other :" + Steps);
+            //    textViews = (TextView) findViewById(R.id.steps);
+            //    textViews.setText(title);
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ExperienceFragment expFragment = new ExperienceFragment(Math.round(StepHolder));
-                fragmentTransaction.replace(R.id.fragmentExp, expFragment);
-                fragmentTransaction.commit();*/
+                cur.close();
 
-
+                makeToast(title);
+                return Integer.parseInt(title);
             }
 
 
         } else {
-           // makeToast("Nothing added");
+            return 0;
         }
 
-
+        return 0;
     }
 
 

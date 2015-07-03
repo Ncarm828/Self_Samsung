@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -87,12 +88,12 @@ public class AlarmReceiver extends BroadcastReceiver {
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-          alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+         /* alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                   AlarmManager.INTERVAL_HALF_HOUR,
-                 AlarmManager.INTERVAL_HALF_HOUR, alarmIntent);
-       // alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-       //         SystemClock.elapsedRealtime() +
-       //                 60 * 1000 , alarmIntent);
+                 AlarmManager.INTERVAL_HALF_HOUR, alarmIntent);*/
+        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() +
+                        60 * 1000 , alarmIntent);
 
     }
 }

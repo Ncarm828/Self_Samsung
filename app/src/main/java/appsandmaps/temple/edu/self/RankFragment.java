@@ -1,6 +1,5 @@
 package appsandmaps.temple.edu.self;
 
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,37 +11,37 @@ import android.widget.TextView;
 
 import appsandmaps.temple.edu.self.R;
 
-public class LevelFragment extends Fragment {
+public class RankFragment extends Fragment {
     TextView tv;
     ProgressBar pBar;
     int pStatus = 0;
     private Handler handler = new Handler();
 
-    public LevelFragment() {
+    public RankFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_level, container, false);
-
-        tv = (TextView) v.findViewById(R.id.tvLevel);
-        pBar = (ProgressBar) v.findViewById(R.id.progressBarLevel);
+        View v = inflater.inflate(R.layout.fragment_rank, container, false);
+        tv = (TextView) v.findViewById(R.id.tvRank);
+        pBar = (ProgressBar) v.findViewById(R.id.progressBarRank);
         pBar.setSecondaryProgress(pBar.getMax());
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                while (pStatus <= 20) {
+                while (pStatus <= 35) {
+
                     handler.post(new Runnable() {
 
                         @Override
                         public void run() {
                             // TODO Auto-generated method stub
                             pBar.setProgress(pStatus);
-                            tv.setText("Level \n"+"5");
+                            tv.setText("Rank \n" + "7");
                         }
                     });
                     try {
@@ -56,7 +55,6 @@ public class LevelFragment extends Fragment {
                 }
             }
         }).start();
-
-        return v;
+        return  v;
     }
 }

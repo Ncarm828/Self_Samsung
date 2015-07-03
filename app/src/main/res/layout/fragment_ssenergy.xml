@@ -1,32 +1,27 @@
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="appsandmaps.temple.edu.content_provider.LevelFragment"
-    android:background="@color/White">
-
-
-
+    tools:context="appsandmaps.temple.edu.self.SSEnergyFragment">
 
     <ProgressBar
-        android:id="@+id/progressBarLevel"
-        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/progressBarSSEnergy"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:indeterminate="false"
-        android:max="100"
-        android:progress="75"
-        android:progressDrawable="@drawable/style_circle_fill_level"
+        android:max="1000"
+        android:progressDrawable="@drawable/style_horizontal"
         android:secondaryProgress="10" />
 
     <TextView
-        android:id="@+id/tvLevel"
+        android:id="@+id/tvSSEnergy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:gravity="center"
         android:layout_margin="5dp"
-        android:layout_gravity="center"
-        android:textSize="20sp" />
-
+        android:layout_gravity="center_vertical"
+        android:textSize="25sp" />
 
 </FrameLayout>

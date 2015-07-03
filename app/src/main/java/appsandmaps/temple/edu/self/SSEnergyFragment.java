@@ -12,37 +12,42 @@ import android.widget.TextView;
 
 import appsandmaps.temple.edu.self.R;
 
-public class LevelFragment extends Fragment {
+public class SSEnergyFragment extends Fragment {
     TextView tv;
     ProgressBar pBar;
     int pStatus = 0;
+    int SSEnegry =0 ;
     private Handler handler = new Handler();
-
-    public LevelFragment() {
+    public SSEnergyFragment() {
         // Required empty public constructor
     }
-
+    public void setStepCount (Integer steps) {
+        //Getting value from the function call and setting it as a End point
+        SSEnegry = steps/100;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_level, container, false);
+        View v = inflater.inflate(R.layout.fragment_ssenergy, container, false);
+        tv = (TextView) v.findViewById(R.id.tvSSEnergy);
+//        pBar = (myProgressBar) findViewById(R.id.progressBar1);
 
-        tv = (TextView) v.findViewById(R.id.tvLevel);
-        pBar = (ProgressBar) v.findViewById(R.id.progressBarLevel);
-        pBar.setSecondaryProgress(pBar.getMax());
+        pBar = (ProgressBar) v.findViewById(R.id.progressBarSSEnergy);
+
         new Thread(new Runnable() {
 
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                while (pStatus <= 20) {
+                while (pStatus <= SSEnegry) {
+
                     handler.post(new Runnable() {
 
                         @Override
                         public void run() {
                             // TODO Auto-generated method stub
                             pBar.setProgress(pStatus);
-                            tv.setText("Level \n"+"5");
+                            tv.setText("SS ENERGY  :  " +pStatus );
                         }
                     });
                     try {
@@ -52,11 +57,11 @@ public class LevelFragment extends Fragment {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    pStatus++;
+                    pStatus ++;
                 }
             }
         }).start();
-
         return v;
     }
+
 }
