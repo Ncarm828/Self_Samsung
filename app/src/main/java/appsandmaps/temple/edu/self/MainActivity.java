@@ -665,7 +665,10 @@ public class MainActivity extends Activity implements EventListener{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+
             GoalFragment fragment = new GoalFragment();
+            goalFragment.setGoal(Math.round(Float.parseFloat(Steps)));
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.fragment_goal, fragment);
@@ -673,6 +676,7 @@ public class MainActivity extends Activity implements EventListener{
             fragmentTransaction.commit();
 
             LevelFragment fragment2 = new LevelFragment();
+            levelFragment.setLevel(20);
             FragmentManager fragmentManager2 = getFragmentManager();
             FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
             fragmentTransaction2.add(R.id.fragment_level, fragment2);
@@ -680,6 +684,7 @@ public class MainActivity extends Activity implements EventListener{
             fragmentTransaction2.commit();
 
             RankFragment fragment1 = new RankFragment();
+            rankFragment.setRank(35);
             FragmentManager fragmentManager1 = getFragmentManager();
             FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
             fragmentTransaction1.add(R.id.fragment_rank, fragment1);
@@ -687,7 +692,9 @@ public class MainActivity extends Activity implements EventListener{
             fragmentTransaction1.commit();
 
             SSEnergyFragment fragment4 = new SSEnergyFragment();
-            fragment4.setStepCount(1265);
+            //Actual Step Count
+            //fragment4.setStepCount(1265);
+            fragment4.setStepCount(Math.round(Float.parseFloat(Steps)));
             FragmentManager fragmentManager4 = getFragmentManager();
             FragmentTransaction fragmentTransaction4 = fragmentManager4.beginTransaction();
             fragmentTransaction4.add(R.id.fragment_SSEnergy, fragment4);
