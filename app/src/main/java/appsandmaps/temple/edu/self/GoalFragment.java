@@ -24,7 +24,7 @@ public class GoalFragment extends Fragment {
         // Required empty public constructor
     }
 
-    //setting goal as the % of dialy step cnt, assuming the av to be 7000
+    //setting goal as the % of dialy step cnt, assuming the avg steps to be 7000
     public void setGoal(int stepCount){
         progress = ((stepCount*100)/7000);
     }

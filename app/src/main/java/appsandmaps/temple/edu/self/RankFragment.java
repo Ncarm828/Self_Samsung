@@ -14,11 +14,12 @@ import appsandmaps.temple.edu.self.R;
 public class RankFragment extends Fragment {
     TextView tv;
     ProgressBar pBar;
-    int pStatus = 0;
-    private Handler handler = new Handler();
-
+    int progress = 0;
     public RankFragment() {
         // Required empty public constructor
+    }
+    public void setRank(int progress){
+        this.progress=progress;
     }
 
     @Override
@@ -26,35 +27,34 @@ public class RankFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_rank, container, false);
         tv = (TextView) v.findViewById(R.id.tvRank);
+        tv.setText("Rank \n"+"#" );
         pBar = (ProgressBar) v.findViewById(R.id.progressBarRank);
         pBar.setSecondaryProgress(pBar.getMax());
-        new Thread(new Runnable() {
 
+        //using animation to fill the data points
+        ObjectAnimator animator = ObjectAnimator.ofInt(pBar, "progress", progress);
+        //setting the time for 500 miliseconds
+        animator.setDuration(500);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
+        //Adding listner to show the endpoint result
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                while (pStatus <= 35) {
-
-                    handler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            // TODO Auto-generated method stub
-                            pBar.setProgress(pStatus);
-                            tv.setText("Rank \n" + "7");
-                        }
-                    });
-                    try {
-                        // Sleep for 200 milliseconds.
-                        // Just to display the progress slowly
-                        Thread.sleep(5);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    pStatus++;
-                }
+            public void onAnimationStart(Animator animation) {
+                tv.setText("Rank \n"+"#" );
             }
-        }).start();
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                tv.setText("Rank \n"+"7" );
+            }
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                tv.setText("Rank \n"+"#" );
+            }
+        });
         return  v;
-    }
+    }   
 }

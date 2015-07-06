@@ -15,53 +15,50 @@ import appsandmaps.temple.edu.self.R;
 public class SSEnergyFragment extends Fragment {
     TextView tv;
     ProgressBar pBar;
-    int pStatus = 0;
-    int SSEnegry =0 ;
-    private Handler handler = new Handler();
+    int progress =0 ;
     public SSEnergyFragment() {
         // Required empty public constructor
     }
-    public void setStepCount (Integer steps) {
+    public void setSSEnergy (int steps) {
         //Getting value from the function call and setting it as a End point
-        SSEnegry = steps/100;
+        progress = steps/100;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_ssenergy, container, false);
+        //grabbing the textview to display the values
         tv = (TextView) v.findViewById(R.id.tvSSEnergy);
-//        pBar = (myProgressBar) findViewById(R.id.progressBar1);
 
+        tv.setText("SS ENERGY  :  " +"#" );
+
+        //getting the progreebar to fill up with data
         pBar = (ProgressBar) v.findViewById(R.id.progressBarSSEnergy);
 
-        new Thread(new Runnable() {
-
+        //using animation to fill the data points
+        ObjectAnimator animator = ObjectAnimator.ofInt(pBar, "progress", progress);
+        //setting the time for 500 miliseconds
+        animator.setDuration(500);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
+        //Adding listner to show the endpoint result
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                while (pStatus <= SSEnegry) {
-
-                    handler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            // TODO Auto-generated method stub
-                            pBar.setProgress(pStatus);
-                            tv.setText("SS ENERGY  :  " +pStatus );
-                        }
-                    });
-                    try {
-                        // Sleep for 200 milliseconds.
-                        // Just to display the progress slowly
-                        Thread.sleep(5);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    pStatus ++;
-                }
+            public void onAnimationStart(Animator animation) {
+                tv.setText("SS ENERGY  :  " +"#" );
             }
-        }).start();
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                tv.setText("SS ENERGY  :  " + progress );
+            }
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                tv.setText("SS ENERGY  :  " +"#" );
+            }
+        });
         return v;
     }
-
 }
